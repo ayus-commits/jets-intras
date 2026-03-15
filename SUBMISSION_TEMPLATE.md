@@ -9,7 +9,6 @@
 
 ## 🔗 Project Links
 * **PPT link:** [add link for ppt explaining your solution]
-* **Demo Video:** [Link to YouTube (3-5 mins)]
 * **Hosted Demo:** [Link to live app, e.g., Vercel or Netlify]
 
 ## Technical Implementation
