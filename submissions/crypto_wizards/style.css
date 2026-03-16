@@ -1,0 +1,161 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    z-index: 1;
+}
+html {
+  scroll-behavior: smooth;
+}
+ul {
+  list-style: none;
+}
+a {
+  color: #999;
+  text-decoration: none;
+}
+h1,h2,h3,h4,h5,h6,p:hover {
+  cursor: default;
+}
+
+
+/******************************************************   NAV-BAR   **********************************************************/
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100vw;
+  justify-content: space-between;
+  background-color: #ffffff;
+  height: 5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.nav-bar1 {
+  margin-left: 1rem;
+  padding: 0.7rem;
+  height: 100%;
+}
+.nav-bar1 img {
+  height: 90%;
+}
+.nav-bar2 {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-size: large;
+  font-weight: 500;
+  height: 100%;
+}
+.nav-el {
+  position: relative;
+  color: #5e5e5e;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.2rem;
+  white-space: nowrap;
+}
+.nav-el:hover {
+  color: #cf8b50;
+}
+.nav-el i{
+    font-size: 1.2rem;
+}
+.nav-el::before {
+  content: "";
+  width: 0%;
+  height: 0.4rem;
+  background-color: #cf8b50;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  transition: all 0.5s;
+}
+.nav-el:hover::before {
+  left: 0px;
+  width: 100%;
+}
+
+
+/******************************************************   FOOTER   **********************************************************/
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 60vh;
+  line-height: 2rem;
+  background-color: #c19569;
+}
+.footer1 {
+  width: 100%;
+  padding-left: 8%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  /* height: 70%; */
+}
+.footer1 ul {
+  width: 20%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #703800;
+  cursor: default;
+}
+.footer1 ul li {
+  font-weight: 200;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.footer1 ul li:hover {
+  color: #522600;
+}
+.footer2 {
+  font-size: 3rem;
+  display: flex;
+  flex-direction: row;
+}
+.fa-brands {
+  font-size: 3rem;
+  color: rgb(255, 255, 255);
+  transition: color 0.3s;
+  cursor: pointer;
+}
+.fa-brands:hover {
+  color: #522600;
+}
+.footer3 {
+  cursor: default;
+  color: white;
+}
+.footer4 {
+  font-size: 2rem;
+  color: #ffffff;
+  transition: color 0.5s;
+  z-index: 1000;
+  white-space: nowrap;
+}
+.footer4:hover {
+  transition: color 0.5s;
+  cursor: pointer;
+}
+.footer4:hover i {
+  color: rgb(255, 0, 0);
+  scale: 1.5;
+  text-shadow: 0 0 2rem rgb(255, 0, 0);
+}
+.footer4 i {
+  color: rgb(255, 64, 64);
+  transition: color 0.5s, scale 1s, text-shadow 0.5s;
+}
