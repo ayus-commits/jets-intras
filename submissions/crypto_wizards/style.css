@@ -25,14 +25,21 @@ h6,
 p:hover {
   cursor: default;
 }
-body {
-  background-color: var(--color1);
-}
 :root {
   --color1: #fff1e37d;
   --color2: #cf8b50;
   --color3: #ffb97c;
   --color4: #fff1e29b;
+  --color5: rgb(138, 97, 0);
+  --color5dark: rgb(255, 153, 0);
+  --background: linear-gradient(
+      to bottom,
+      #fff1e37d 0%,
+      white 100%
+    );
+}
+#main {
+  background: var(--background);
 }
 
 /******************************************************   NAV-BAR   **********************************************************/
@@ -98,7 +105,7 @@ body {
 
 /******************************************************   Hero   **********************************************************/
 #hero {
-    background-image: url("https://pin.it/6nonRHER6");
+  background-image: url("https://pin.it/6nonRHER6");
 }
 .hero1 {
   display: flex;
@@ -110,30 +117,44 @@ body {
 .hero1 h1 {
   font-size: 4rem;
 }
-.hero1 p{
-    font-size: 1.5rem;
+.hero1 h1 span {
+  color: var(--color5dark);
+  text-decoration: underline solid rgb(0, 0, 0) 7px;
+  transition:
+    color 0.3s,
+    text-shadow 0.3s;
 }
-.hero3 h2{
-    align-self: flex-start;
-    margin: 2rem 5rem;
+.hero1 h1 span:hover {
+  color: var(--color5);
 }
-#hero3 {
+.hero1 p {
+  font-size: 1.5rem;
+}
+
+/******************************************************   Hero2   **********************************************************/
+.hero2 h2 {
+  align-self: flex-start;
+  margin: 2rem 0rem;
+}
+.hero2 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; */
+  width: 70%;
+  margin: 0 15%;
 }
-#hero3-list {
+#hero2-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  height: 20vh;
-  width: 100vw;
+  /* height: 20vh; */
+  width: 100%;
 }
-.hero3-el {
-  width: 15%;
+.hero2-el {
+  width: 23%;
   aspect-ratio: 3/2;
   display: flex;
   flex-direction: column;
@@ -142,56 +163,128 @@ body {
   background-color: var(--color4);
   border-radius: 1rem;
   box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.5);
-  transition: box-shadow, transform 0.3s;
+  transition:
+    box-shadow,
+    transform 0.3s;
 }
-.hero3-el:hover {
+.hero2-el:hover {
   cursor: pointer;
   transform: scale(0.9);
   box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.5);
 }
 
-/******************************************************   Trending   **********************************************************/
-#trending {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+/******************************************************   Hero3   **********************************************************/
+.hero3 h2 {
+  align-self: flex-start;
+  margin: 2rem 0rem;
+  text-wrap: nowrap;
 }
-#trending h2{
-    align-self: flex-start;
-    margin: 2rem 5rem;
+.hero3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 60%;
+  margin: 0 20%;
 }
-#trending-list{
-    width:90vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+#hero3-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 30vh; */
+  width: 100%;
 }
-#trending-el{
-    font: 1.5rem Poppins, sans-serif;
-    color: #5e5e5e;
+.hero3-el {
+  font-size: 1.5rem;
+  width: 30%;
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--color4);
+  border-radius: 1rem;
+  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.5);
+  transition:
+    box-shadow,
+    transform 0.3s;
 }
-.trending-el {
+.hero3-el:hover {
+  cursor: pointer;
+  transform: scale(0.95);
+  box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.5);
+}
+.hero3-el {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.hero3-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+.hero3-list li {
+  font-size: 1.2rem;
+  border-bottom: 1px solid rgb(128, 117, 0);
+  color: #5e5e5e;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/******************************************************   list   **********************************************************/
+#list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#list h2 {
+  align-self: flex-start;
+  margin: 2rem 5rem;
+}
+#list-list {
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#list-el {
+  font:
+    1.5rem Poppins,
+    sans-serif;
+  color: #5e5e5e;
+}
+.list-el {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   height: 2.5rem;
   width: 100%;
-  border-top: 1px solid rgb(174, 174, 174);
+  border-top: 1px solid rgb(237, 237, 237);
 }
-.trending-el:hover {
+.list-el:hover {
   background-color: #fff1e29b;
   color: var(--color2);
   cursor: pointer;
 }
-.trending-el i {
-    font-size: 1.5rem;
-    color: inherit;
+.list-el i {
+  font-size: 1.5rem;
+  color: inherit;
 }
-.trending-el h4 , .trending-el p{
-    width: 20%;
+.list-el h4,
+.list-el p {
+  width: 20%;
+  text-align: center;
 }
 
 /******************************************************   FOOTER   **********************************************************/
@@ -227,7 +320,7 @@ body {
   font-size: 1.2rem;
   color: rgb(110, 110, 110);
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0s;
 }
 .footer1 ul li:hover {
   color: var(--color3);
@@ -239,12 +332,12 @@ body {
 }
 .fa-brands {
   font-size: 3rem;
-  color: rgb(95, 95, 95);
+  color: rgb(0, 0, 0);
   transition: color 0.3s;
   cursor: pointer;
 }
 .fa-brands:hover {
-  color:var(--color3);
+  color: var(--color3);
 }
 .footer3 {
   cursor: default;
@@ -252,7 +345,7 @@ body {
 }
 .footer4 {
   font-size: 2rem;
-  color: #686868;
+  color: #ff0000;
   transition: color 0.5s;
   z-index: 1000;
   white-space: nowrap;
