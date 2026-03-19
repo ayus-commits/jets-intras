@@ -19,6 +19,8 @@ async function getData(id) {
     //   `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=inr&days=7&x_cg_api_key=${key}`,
     //top 20 coins by market cap:
     //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=20&page=1&x_cg_api_key=${key}`,
+    //global data:
+      `https://api.coingecko.com/api/v3/global?x_cg_api_key=${key}`
     );
     const data = await res.json();
     console.log("Crypto Market data loaded", data);
