@@ -26,20 +26,27 @@ p:hover {
   cursor: default;
 }
 :root {
-  --color1: #fff1e37d;
-  --color2: #cf8b50;
-  --color3: #ffb97c;
-  --color4: #fff1e29b;
-  --color5: rgb(138, 97, 0);
-  --color5dark: rgb(255, 153, 0);
+  --bg: #080D1B;
+  --navbar: #161527;
+  --font:white;
+  --font2: #c9c9c9;
+  --highlight: #7DB2DD;
+  --box: #151D32;
+  --shadow :var(--box);
+  --shadow2: #7DB2DD;
   --background: linear-gradient(
       to bottom,
-      #fff1e37d 0%,
-      white 100%
+      var(--bg) 0%,
+      var(--highlight) 100%
     );
+  --red: #C23F52;
+  --green: #00A68C;
+  /* --logo: rgb(255, 153, 0); */
 }
 #main {
-  background: var(--background);
+  /* background: var(--background); */
+  background-color: var(--bg);
+  color: var(--font);
 }
 
 /******************************************************   NAV-BAR   **********************************************************/
@@ -49,7 +56,7 @@ p:hover {
   align-items: center;
   width: 100vw;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: var(--navbar);
   height: 5rem;
   position: sticky;
   top: 0;
@@ -74,7 +81,7 @@ p:hover {
 }
 .nav-el {
   position: relative;
-  color: #5e5e5e;
+  color: var(--font2);
   height: 100%;
   display: flex;
   align-items: center;
@@ -83,7 +90,7 @@ p:hover {
   white-space: nowrap;
 }
 .nav-el:hover {
-  color: var(--color2);
+  color: var(--highlight);
 }
 .nav-el i {
   font-size: 1.2rem;
@@ -92,7 +99,7 @@ p:hover {
   content: "";
   width: 0%;
   height: 0.4rem;
-  background-color: var(--color3);
+  background-color: var(--highlight);
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -118,14 +125,14 @@ p:hover {
   font-size: 4rem;
 }
 .hero1 h1 span {
-  color: var(--color5dark);
-  text-decoration: underline solid rgb(0, 0, 0) 7px;
+  color: var(--highlight);
+  text-decoration: underline solid var(--font) 7px;
   transition:
     color 0.3s,
     text-shadow 0.3s;
 }
 .hero1 h1 span:hover {
-  color: var(--color5);
+  color: var(--font);
 }
 .hero1 p {
   font-size: 1.5rem;
@@ -160,9 +167,9 @@ p:hover {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: var(--color4);
+  background-color: var(--box);
   border-radius: 1rem;
-  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.5);
+  box-shadow: 0px 0px 20px var(--shadow);
   transition:
     box-shadow,
     transform 0.3s;
@@ -170,7 +177,7 @@ p:hover {
 .hero2-el:hover {
   cursor: pointer;
   transform: scale(0.9);
-  box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.5);
+  box-shadow: 0px 0px 5px var(--box);
 }
 
 /******************************************************   Hero3   **********************************************************/
@@ -203,9 +210,9 @@ p:hover {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: var(--color4);
+  background-color: var(--box);
   border-radius: 1rem;
-  box-shadow: 0px 0px 10px rgba(128, 128, 128, 0.5);
+  box-shadow: 0px 0px 20px var(--shadow);
   transition:
     box-shadow,
     transform 0.3s;
@@ -213,7 +220,7 @@ p:hover {
 .hero3-el:hover {
   cursor: pointer;
   transform: scale(0.95);
-  box-shadow: 0px 0px 3px rgba(128, 128, 128, 0.5);
+  box-shadow: 0px 0px 5px var(--box);
 }
 .hero3-el {
   display: flex;
@@ -230,8 +237,8 @@ p:hover {
 }
 .hero3-list li {
   font-size: 1.2rem;
-  border-bottom: 1px solid rgb(128, 117, 0);
-  color: #5e5e5e;
+  /* border-bottom: 1px solid var(--font2); */
+  color: var(--font2);
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -261,7 +268,7 @@ p:hover {
   font:
     1.5rem Poppins,
     sans-serif;
-  color: #5e5e5e;
+  color: var(--font);
 }
 .list-el {
   display: flex;
@@ -270,11 +277,13 @@ p:hover {
   align-items: center;
   height: 2.5rem;
   width: 100%;
-  border-top: 1px solid rgb(237, 237, 237);
+  border-top: 1px solid rgba(237, 237, 237, 0.198);
+  transition: color 0.3s,background-color 0.1s;
+  border-radius: 50%;
 }
 .list-el:hover {
-  background-color: #fff1e29b;
-  color: var(--color2);
+  background-color: #ffffff24;
+  color: var(--highlight);
   cursor: pointer;
 }
 .list-el i {
@@ -296,7 +305,7 @@ p:hover {
   align-items: center;
   height: 60vh;
   line-height: 2rem;
-  background-color: #ffffff;
+  background-color: var(--bg);
 }
 .footer1 {
   width: 100%;
@@ -311,19 +320,20 @@ p:hover {
   width: 20%;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #000000;
+  color: var(--font);
+  /* color: #000000; */
   cursor: default;
 }
 .footer1 ul li {
   font-weight: 200;
   text-decoration: none;
   font-size: 1.2rem;
-  color: rgb(110, 110, 110);
+  color: rgb(185, 185, 185);
   cursor: pointer;
   transition: color 0s;
 }
 .footer1 ul li:hover {
-  color: var(--color3);
+  color: var(--highlight);
 }
 .footer2 {
   font-size: 3rem;
@@ -332,12 +342,12 @@ p:hover {
 }
 .fa-brands {
   font-size: 3rem;
-  color: rgb(0, 0, 0);
+  color: var(--font);
   transition: color 0.3s;
   cursor: pointer;
 }
 .fa-brands:hover {
-  color: var(--color3);
+  color: var(--highlight);
 }
 .footer3 {
   cursor: default;
@@ -345,7 +355,7 @@ p:hover {
 }
 .footer4 {
   font-size: 2rem;
-  color: #ff0000;
+  color: var(--highlight);
   transition: color 0.5s;
   z-index: 1000;
   white-space: nowrap;
