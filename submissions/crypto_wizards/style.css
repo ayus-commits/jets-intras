@@ -1,13 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
-    z-index: 1;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  z-index: 1;
 }
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg);
 }
 ul {
   list-style: none;
@@ -16,8 +17,68 @@ a {
   color: #999;
   text-decoration: none;
 }
-h1,h2,h3,h4,h5,h6,p:hover {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p:hover {
   cursor: default;
+}
+:root {
+  --bg: #010204;
+  --navbar: #161527;
+  --font: white;
+  --font2: #c9c9c9;
+  --highlight: #7db2dd;
+  --highlight2: #20425d;
+  --highlight3:#123A38;
+  --box: #ffffff0d;
+  --shadow: var(--box);
+  --border: rgb(66, 66, 66);
+  --gradient:
+  linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/5.jpg);
+  --gradient1:
+    linear-gradient(
+      to bottom,
+      /* var(--bg) 0%, */
+      rgba(255, 255, 255, 0) 0%,
+      var(--bg) 70%
+    ),
+    url(assets/images/3\ copy.jpg);
+  --gradient2:
+  linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/4.jpg);
+    --gradient3:
+  linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/7.gif);
+    
+  --red: #c23f52;
+  --green: #00a68c;
+  /* --logo: rgb(255, 153, 0); */
+}
+#main {
+  /* background: var(--gradient); */
+    /* background-size: cover; */
+  background-color: var(--bg);
+  color: var(--font);
 }
 
 
@@ -28,7 +89,7 @@ h1,h2,h3,h4,h5,h6,p:hover {
   align-items: center;
   width: 100vw;
   justify-content: space-between;
-  background-color: #ffffff;
+  background-color: var(--navbar);
   height: 5rem;
   position: sticky;
   top: 0;
@@ -38,6 +99,8 @@ h1,h2,h3,h4,h5,h6,p:hover {
   margin-left: 1rem;
   padding: 0.7rem;
   height: 100%;
+  display: flex;
+  align-items: center   ;
 }
 .nav-bar1 img {
   height: 90%;
@@ -53,7 +116,7 @@ h1,h2,h3,h4,h5,h6,p:hover {
 }
 .nav-el {
   position: relative;
-  color: #5e5e5e;
+  color: var(--font2);
   height: 100%;
   display: flex;
   align-items: center;
@@ -62,16 +125,16 @@ h1,h2,h3,h4,h5,h6,p:hover {
   white-space: nowrap;
 }
 .nav-el:hover {
-  color: #cf8b50;
+  color: var(--highlight);
 }
-.nav-el i{
-    font-size: 1.2rem;
+.nav-el i {
+  font-size: 1.2rem;
 }
 .nav-el::before {
   content: "";
   width: 0%;
   height: 0.4rem;
-  background-color: #cf8b50;
+  background-color: var(--highlight);
   position: absolute;
   right: 0px;
   bottom: 0px;
@@ -82,6 +145,271 @@ h1,h2,h3,h4,h5,h6,p:hover {
   width: 100%;
 }
 
+/******************************************************   Hero   **********************************************************/
+#hero {
+  background: var(--gradient1);
+  background-size:cover;
+}
+.hero1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  margin-left: 5rem;
+  height: 40vh;
+}
+.hero1 h1 {
+  font-size: 4rem;
+}
+.hero1 h1 span {
+  color: var(--highlight);
+  text-decoration: underline solid var(--font) 7px;
+  transition:
+    color 0.3s,
+    text-shadow 0.3s;
+}
+.hero1 h1 span:hover {
+  color: var(--font);
+}
+.hero1 p {
+  font-size: 1.5rem;
+}
+
+/******************************************************   Hero2   **********************************************************/
+.hero2 h2 {
+    font-size: 2rem;
+  align-self: flex-start;
+  margin: 2rem 0rem;
+    color: var(--highlight);
+}
+.hero2 {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  /* height: 100vh; */
+  width: 70%;
+  margin: 0 15%;
+}
+#hero2-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 20vh; */
+  width: 100%;
+}
+.hero2-el {
+  width: 25%;
+  aspect-ratio: 3/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  /* border-right:1px solid var(--highlight); */
+  /* border-right:1px solid var(--font2); */
+
+  /* background-color: var(--box); */
+    background: var(--gradient2);
+    background-size: contain;
+  /* border-radius: 2rem; */
+  /* box-shadow: 0px 5px 5px var(--shadow); */
+  /* backdrop-filter: blur(10px); */
+
+  /* transition:
+  border 1s,
+    box-shadow 0.3s,
+    transform 0.3s; */
+}
+.hero2-el h4{
+    font-size: 1.2rem;
+}
+#hero2-active{
+    border: none;
+}
+.hero2-el:hover {
+  cursor: pointer;
+  /* border: none; */
+  /* transform: scale(0.9); */
+  /* box-shadow: 0px 0px 5px var(--box); */
+}
+
+/******************************************************   Hero3   **********************************************************/
+.hero3 h2 {
+    font-size: 2rem;
+  align-self: flex-start;
+  margin: 2rem 0rem;
+  text-wrap: nowrap;
+    color: var(--highlight);
+}
+.hero3 {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  margin: 0 15%;
+}
+#hero3-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* height: 30vh; */
+  width: 100%;
+}
+.hero3-el {
+  font-size: 1.5rem;
+  width: 30%;
+  aspect-ratio: 4/5;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: var(--box);
+    /* background: var(--gradient3); */
+    background-size: contain;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 20px var(--shadow);
+  transition:
+    box-shadow,
+    transform 0.3s;
+}
+.hero3-el:hover {
+  cursor: pointer;
+  transform: scale(0.95);
+  box-shadow: 0px 0px 5px var(--box);
+}
+.hero3-el {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.hero3-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+}
+.hero3-list li {
+  font-size: 1.2rem;
+  /* border-bottom: 1px solid var(--font2); */
+  color: var(--font2);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/******************************************************   list   **********************************************************/
+#list {
+    /* margin: 2rem 0; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 70%;
+  margin: 0 15%;
+  margin-bottom: 5rem;
+}
+#list h2 {
+  align-self: flex-start;
+  margin: 2rem 0rem;
+  font-size: 2rem;
+    color: var(--highlight);
+}
+#list-list {
+  width: 70vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+#list-el {
+  font:
+    1.5rem Poppins,
+    sans-serif;
+  color: var(--font);
+}
+.list-el {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 3rem;
+  width: 100%;
+  border-top: 1px solid rgba(237, 237, 237, 0.198);
+  transition:
+    color 0.3s,
+    background-color 0.1s;
+  border-radius:15px;
+}
+.list-el:hover {
+  background-color: #ffffff24;
+  color: var(--highlight);
+  cursor: pointer;
+}
+.list-el i {
+  font-size: 1.5rem;
+  color: inherit;
+}
+.list-el h4,
+.list-el p {
+  width: 20%;
+  text-align: center;
+}
+
+/******************************************************   FEEDBACK   **********************************************************/
+.feedback {
+  background-color: var(--bg);
+  border-top: 2px solid var(--highlight2);
+  height: 15rem;
+  padding-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.feedback h1 {
+  color: white;
+  font-size: 3rem;
+}
+.feedback button {
+  height: 60px;
+  width: 300px;
+  color: var(--highlight);
+  background-color: var(--bg);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 20px;
+  border: 2px solid var(--font);
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+}
+.feedback button:hover {
+  background-color: var(--highlight2);
+  color: var(--font);
+  cursor: pointer;
+  box-shadow: 0 0 1rem var(--highlight2);
+}
+@media screen and (max-width: 720px) {
+  .feedback {
+    padding-left: 1rem;
+  }
+  .feedback h1 {
+    font-size: 1.5rem;
+  }
+  .feedback button {
+    width: 200px;
+    height: 40px;
+    border-radius: 15px;
+    font-size: 1rem;
+  }
+}
 
 /******************************************************   FOOTER   **********************************************************/
 
@@ -92,7 +420,8 @@ h1,h2,h3,h4,h5,h6,p:hover {
   align-items: center;
   height: 60vh;
   line-height: 2rem;
-  background-color: #c19569;
+  background-color: var(--bg);
+  border-top: 2px solid var(--highlight2);
 }
 .footer1 {
   width: 100%;
@@ -107,19 +436,20 @@ h1,h2,h3,h4,h5,h6,p:hover {
   width: 20%;
   font-size: 1.5rem;
   font-weight: 600;
-  color: #703800;
+  color: var(--font);
+  /* color: #000000; */
   cursor: default;
 }
 .footer1 ul li {
   font-weight: 200;
   text-decoration: none;
   font-size: 1.2rem;
-  color: rgb(255, 255, 255);
+  color: rgb(185, 185, 185);
   cursor: pointer;
-  transition: color 0.3s;
+  transition: color 0s;
 }
 .footer1 ul li:hover {
-  color: #522600;
+  color: var(--highlight);
 }
 .footer2 {
   font-size: 3rem;
@@ -128,20 +458,20 @@ h1,h2,h3,h4,h5,h6,p:hover {
 }
 .fa-brands {
   font-size: 3rem;
-  color: rgb(255, 255, 255);
+  color: var(--font);
   transition: color 0.3s;
   cursor: pointer;
 }
 .fa-brands:hover {
-  color: #522600;
+  color: var(--highlight);
 }
 .footer3 {
   cursor: default;
-  color: white;
+  color: rgb(121, 121, 121);
 }
 .footer4 {
   font-size: 2rem;
-  color: #ffffff;
+  color: var(--font2);
   transition: color 0.5s;
   z-index: 1000;
   white-space: nowrap;
@@ -157,5 +487,8 @@ h1,h2,h3,h4,h5,h6,p:hover {
 }
 .footer4 i {
   color: rgb(255, 64, 64);
-  transition: color 0.5s, scale 1s, text-shadow 0.5s;
+  transition:
+    color 0.5s,
+    scale 1s,
+    text-shadow 0.5s;
 }
