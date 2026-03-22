@@ -8,6 +8,7 @@
 }
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg);
 }
 ul {
   list-style: none;
@@ -26,28 +27,60 @@ p:hover {
   cursor: default;
 }
 :root {
-  --bg: #080D1B;
+  --bg: #010204;
   --navbar: #161527;
-  --font:white;
+  --font: white;
   --font2: #c9c9c9;
-  --highlight: #7DB2DD;
-  --box: #151D32;
-  --shadow :var(--box);
-  --shadow2: #7DB2DD;
-  --background: linear-gradient(
+  --highlight: #7db2dd;
+  --highlight2: #20425d;
+  --highlight3:#123A38;
+  --box: #ffffff0d;
+  --shadow: var(--box);
+  --border: rgb(66, 66, 66);
+  --gradient:
+  linear-gradient(
       to bottom,
       var(--bg) 0%,
-      var(--highlight) 100%
-    );
-  --red: #C23F52;
-  --green: #00A68C;
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/5.jpg);
+  --gradient1:
+    linear-gradient(
+      to bottom,
+      /* var(--bg) 0%, */
+      rgba(255, 255, 255, 0) 0%,
+      var(--bg) 70%
+    ),
+    url(assets/images/3\ copy.jpg);
+  --gradient2:
+  linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/4.jpg);
+    --gradient3:
+  linear-gradient(
+      to bottom,
+      var(--bg) 0%,
+      rgba(255, 255, 255, 0) 50%,
+      var(--bg) 100%
+    ),
+    url(assets/images/7.gif);
+    
+  --red: #c23f52;
+  --green: #00a68c;
   /* --logo: rgb(255, 153, 0); */
 }
 #main {
-  /* background: var(--background); */
+  /* background: var(--gradient); */
+    /* background-size: cover; */
   background-color: var(--bg);
   color: var(--font);
 }
+
 
 /******************************************************   NAV-BAR   **********************************************************/
 .nav-bar {
@@ -66,6 +99,8 @@ p:hover {
   margin-left: 1rem;
   padding: 0.7rem;
   height: 100%;
+  display: flex;
+  align-items: center   ;
 }
 .nav-bar1 img {
   height: 90%;
@@ -112,7 +147,8 @@ p:hover {
 
 /******************************************************   Hero   **********************************************************/
 #hero {
-  background-image: url("https://pin.it/6nonRHER6");
+  background: var(--gradient1);
+  background-size:cover;
 }
 .hero1 {
   display: flex;
@@ -140,10 +176,14 @@ p:hover {
 
 /******************************************************   Hero2   **********************************************************/
 .hero2 h2 {
+    font-size: 2rem;
   align-self: flex-start;
   margin: 2rem 0rem;
+    color: var(--highlight);
 }
 .hero2 {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -161,38 +201,57 @@ p:hover {
   width: 100%;
 }
 .hero2-el {
-  width: 23%;
+  width: 25%;
   aspect-ratio: 3/2;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  background-color: var(--box);
-  border-radius: 1rem;
-  box-shadow: 0px 0px 20px var(--shadow);
-  transition:
-    box-shadow,
-    transform 0.3s;
+  /* border-right:1px solid var(--highlight); */
+  /* border-right:1px solid var(--font2); */
+
+  /* background-color: var(--box); */
+    background: var(--gradient2);
+    background-size: contain;
+  /* border-radius: 2rem; */
+  /* box-shadow: 0px 5px 5px var(--shadow); */
+  /* backdrop-filter: blur(10px); */
+
+  /* transition:
+  border 1s,
+    box-shadow 0.3s,
+    transform 0.3s; */
+}
+.hero2-el h4{
+    font-size: 1.2rem;
+}
+#hero2-active{
+    border: none;
 }
 .hero2-el:hover {
   cursor: pointer;
-  transform: scale(0.9);
-  box-shadow: 0px 0px 5px var(--box);
+  /* border: none; */
+  /* transform: scale(0.9); */
+  /* box-shadow: 0px 0px 5px var(--box); */
 }
 
 /******************************************************   Hero3   **********************************************************/
 .hero3 h2 {
+    font-size: 2rem;
   align-self: flex-start;
   margin: 2rem 0rem;
   text-wrap: nowrap;
+    color: var(--highlight);
 }
 .hero3 {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  width: 60%;
-  margin: 0 20%;
+  width: 70%;
+  margin: 0 15%;
 }
 #hero3-list {
   display: flex;
@@ -211,6 +270,8 @@ p:hover {
   justify-content: space-evenly;
   align-items: center;
   background-color: var(--box);
+    /* background: var(--gradient3); */
+    background-size: contain;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px var(--shadow);
   transition:
@@ -248,14 +309,20 @@ p:hover {
 
 /******************************************************   list   **********************************************************/
 #list {
+    /* margin: 2rem 0; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  width: 70%;
+  margin: 0 15%;
+  margin-bottom: 5rem;
 }
 #list h2 {
   align-self: flex-start;
-  margin: 2rem 5rem;
+  margin: 2rem 0rem;
+  font-size: 2rem;
+    color: var(--highlight);
 }
 #list-list {
   width: 70vw;
@@ -275,11 +342,13 @@ p:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 2.5rem;
+  height: 3rem;
   width: 100%;
   border-top: 1px solid rgba(237, 237, 237, 0.198);
-  transition: color 0.3s,background-color 0.1s;
-  border-radius: 50%;
+  transition:
+    color 0.3s,
+    background-color 0.1s;
+  border-radius:15px;
 }
 .list-el:hover {
   background-color: #ffffff24;
@@ -296,6 +365,52 @@ p:hover {
   text-align: center;
 }
 
+/******************************************************   FEEDBACK   **********************************************************/
+.feedback {
+  background-color: var(--bg);
+  border-top: 2px solid var(--highlight2);
+  height: 15rem;
+  padding-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.feedback h1 {
+  color: white;
+  font-size: 3rem;
+}
+.feedback button {
+  height: 60px;
+  width: 300px;
+  color: var(--highlight);
+  background-color: var(--bg);
+  font-size: 1.2rem;
+  font-weight: 500;
+  border-radius: 20px;
+  border: 2px solid var(--font);
+  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+}
+.feedback button:hover {
+  background-color: var(--highlight2);
+  color: var(--font);
+  cursor: pointer;
+  box-shadow: 0 0 1rem var(--highlight2);
+}
+@media screen and (max-width: 720px) {
+  .feedback {
+    padding-left: 1rem;
+  }
+  .feedback h1 {
+    font-size: 1.5rem;
+  }
+  .feedback button {
+    width: 200px;
+    height: 40px;
+    border-radius: 15px;
+    font-size: 1rem;
+  }
+}
+
 /******************************************************   FOOTER   **********************************************************/
 
 .footer {
@@ -306,6 +421,7 @@ p:hover {
   height: 60vh;
   line-height: 2rem;
   background-color: var(--bg);
+  border-top: 2px solid var(--highlight2);
 }
 .footer1 {
   width: 100%;
@@ -355,7 +471,7 @@ p:hover {
 }
 .footer4 {
   font-size: 2rem;
-  color: var(--highlight);
+  color: var(--font2);
   transition: color 0.5s;
   z-index: 1000;
   white-space: nowrap;
