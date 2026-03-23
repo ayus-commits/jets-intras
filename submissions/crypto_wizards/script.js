@@ -77,7 +77,32 @@ async function fetchGainersLosers() {
         console.error("Failed to fetch CoinGecko data:", err);
     }
 }
-async function fetchCoins(id="bitcoin") {
+const coins = [
+"aave",
+"binancecoin",
+"bitcoin",
+"cardano",
+"chainlink",
+"cosmos",
+"crypto-com-chain",
+"dogecoin",
+"eos",
+"ethereum",
+"iota",
+"litecoin",
+"monero",
+"nem",
+"polkadot",
+"solana",
+"stellar",
+"tether",
+"tron",
+"uniswap",
+"usd-coin",
+"wrapped-bitcoin",
+"ripple"
+];
+async function fetchList(id = coins) {
     try{
         const res = await fetch(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${id}&x_cg_api_key=${key}`);
         const data = await res.json();
@@ -94,13 +119,13 @@ async function loadData() {
       fetchglobal(),
       fetchTrending(),
       fetchGainersLosers(),
-      fetchCoins()
+      fetchList()
     ]);
     const { gainers, losers } = gainersLosers;
     renderGlobal(global);
     renderTrending(trending);
     renderGainersLosers(gainers,losers);
-    renderCoins(coins);
+    renderList(coins);
   } catch (err) {
     console.error("Failed to fetch CoinGecko data:", err);
   }
@@ -109,9 +134,9 @@ async function loadData() {
 // //___________________________________________Render_________________________________________________________________
 function setColor(el, value) {
     if (value > 0) {
-    el.style.color = "green";
+    el.style.color = "var(--green)";
     } else if (value < 0) {
-    el.style.color = "red";
+    el.style.color = "var(--red)";
     } else {
     el.style.color = "gray";
     }
@@ -126,18 +151,8 @@ function renderGlobal(global) {
     const el2 = document.getElementById("hero2-volume").querySelector("span");
     value1 = global.data.market_cap_change_percentage_24h_usd;
     value2 = global.data.volume_change_percentage_24h_usd;
-    if (value1 > 0) {
-        el1.textContent = "+" + value1.toFixed(2) + "%";
-    }
-    else{
-        el1.textContent = value1.toFixed(2) + "%";
-    }
-    if (value2 > 0) {
-        el2.textContent = "+" + value2.toFixed(2) + "%";
-    }
-    else{
-        el2.textContent = value2.toFixed(2) + "%";
-    }
+    el1.textContent = (value1 > 0 ? "+" : "") + value1.toFixed(2) + "%";
+    el2.textContent = (value2 > 0 ? "+" : "") + value2.toFixed(2) + "%";
     setColor(el1, value1);
     setColor(el2, value2);
 }
@@ -168,5 +183,31 @@ function renderGainersLosers(gainers,losers){
     // listEl1.querySelectorAll("span").forEach(el => setColor(el, 1));
     // listEl2.querySelectorAll("span").forEach(el => setColor(el, -1));
 }
-function renderCoins(coins) {
+function renderList(coins) {
+    const listEl = document.getElementById("list-list");
+    listEl.innerHTML = `<li id="list-el" class="list-el">
+                    <h4>Coin</h4>
+                    <p>Price</p>
+                    <p>24h%</p>
+                    <p>High 24h</p>
+                    <p>Low 24h</p>
+                    <p>Prediction</p>
+                    <p>Confidence</p>
+                </li>`;
+    
+    coins.forEach((coin,i) => {
+        const el = document.createElement("li");
+        el.classList.add("list-el");
+        el.innerHTML = `<h4><img src="${coin.image}" alt="hell">${coin.name}</h4>
+                    <p>${coin.current_price.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
+                    <p>${(coin.price_change_percentage_24h > 0 ? "+" : "") + coin.price_change_percentage_24h.toFixed(2) + "%"}</p>
+                    <p>${coin.high_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
+                    <p>${coin.low_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
+                    <p><i class="fa-solid fa-caret-up"></i></p>
+                    <p>55%</p>`;
+        listEl.appendChild(el);
+    });
+    const listEls=document.querySelectorAll(".list-el");
+    listEls.forEach(el => 
+        setColor(el.querySelectorAll("p")[1], parseFloat(el.querySelectorAll("p")[1].textContent)));
 }
