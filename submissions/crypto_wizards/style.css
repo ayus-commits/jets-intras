@@ -306,7 +306,12 @@ p:hover {
   justify-content: space-between;
   align-items: center;
 }
-
+#hero3-list2 li span {
+  color: var(--green);
+}
+#hero3-list3 li span {
+  color: var(--red);
+}
 /******************************************************   list   **********************************************************/
 #list {
     /* margin: 2rem 0; */
