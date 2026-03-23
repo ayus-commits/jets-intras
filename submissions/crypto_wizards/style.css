@@ -344,6 +344,7 @@ p:hover {
     1.5rem Poppins,
     sans-serif;
   color: var(--font);
+  font-size: 1rem;
 }
 .list-el {
   display: flex;
@@ -352,6 +353,7 @@ p:hover {
   align-items: center;
   height: 3rem;
   width: 100%;
+  padding-left: 1rem;
   border-top: 1px solid rgba(237, 237, 237, 0.198);
   border-radius:15px;
 }
@@ -371,13 +373,11 @@ p:hover {
   width: 20%;
   text-align: center;
 }
-
 .list-el h4 img {
   height: 1.5rem;
   margin-right: 0.5rem;
   vertical-align: middle;
 }
-
 /******************************************************   FEEDBACK   **********************************************************/
 .feedback {
   background-color: var(--bg);

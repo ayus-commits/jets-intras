@@ -208,6 +208,8 @@ function renderList(coins) {
         listEl.appendChild(el);
     });
     const listEls=document.querySelectorAll(".list-el");
-    listEls.forEach(el => 
-        setColor(el.querySelectorAll("p")[1], parseFloat(el.querySelectorAll("p")[1].textContent)));
+    listEls.forEach((el,i) =>{
+        if(i>0){
+            setColor(el.querySelectorAll("p")[1], parseFloat(el.querySelectorAll("p")[1].textContent));
+        }});
 }
