@@ -173,6 +173,9 @@ p:hover {
 .hero1 p {
   font-size: 1.5rem;
 }
+.hero1 a:hover {
+  color: var(--highlight);
+}
 
 /******************************************************   Hero2   **********************************************************/
 .hero2 h2 {
@@ -350,9 +353,6 @@ p:hover {
   height: 3rem;
   width: 100%;
   border-top: 1px solid rgba(237, 237, 237, 0.198);
-  transition:
-    color 0.3s,
-    background-color 0.1s;
   border-radius:15px;
 }
 .list-el:hover {
@@ -364,10 +364,18 @@ p:hover {
   font-size: 1.5rem;
   color: inherit;
 }
-.list-el h4,
+.list-el h4{
+  width: 20%;
+}
 .list-el p {
   width: 20%;
   text-align: center;
+}
+
+.list-el h4 img {
+  height: 1.5rem;
+  margin-right: 0.5rem;
+  vertical-align: middle;
 }
 
 /******************************************************   FEEDBACK   **********************************************************/
