@@ -272,7 +272,7 @@ function renderList(coins) {
         ];
         console.log("clicked on coin , features:",ohlc);
         const [prediction, confidence] = predict(features,ohlc, model);
-        el.querySelectorAll("p")[4].textContent = prediction;
+        el.querySelectorAll("p")[4].innerHTML = prediction;
         el.querySelectorAll("p")[5].textContent = confidence;
       });
     });
@@ -341,7 +341,7 @@ function predict(features, data, model) {
   }
 
   const prob = 1 / (1 + Math.exp(-result));
-  return [prob > 0.5 ? "UP" : "DOWN", prob.toFixed(4)];
+  return [prob > 0.5 ? '<i class="fa-solid fa-angles-up" style="color:var(--green);"></i>' : '<i class="fa-solid fa-angles-down" style="color:var(--red);"></i>', prob.toFixed(4)];
 }
 
 function computeFeatures(data) {
