@@ -1,8 +1,10 @@
 //___________________________________________Initial_________________________________________________________________
 
 document.addEventListener("DOMContentLoaded", init);
-function init() {
+const Models = [];
+function init(Models) {
   loadData();
+  Models = loadModels();
 }
 
 //___________________________________________API_________________________________________________________________
@@ -141,19 +143,17 @@ async function fetchOHLC(id = coins) {
 
 async function loadData() {
   try {
-    const [global, trending, gainersLosers, coins, OHLC , models] = await Promise.all([
+    const [global, trending, gainersLosers, coins] = await Promise.all([
       fetchglobal(),
       fetchTrending(),
       fetchGainersLosers(),
       fetchList(),
-      fetchOHLC(),
-      loadModels(),
     ]);
     const { gainers, losers } = gainersLosers;
     renderGlobal(global);
     renderTrending(trending);
     renderGainersLosers(gainers, losers);
-    renderList(coins,OHLC, models);
+    renderList(coins);
   } catch (err) {
     console.error("Failed to fetch CoinGecko data:", err);
   }
@@ -221,7 +221,7 @@ function renderGainersLosers(gainers, losers) {
   // listEl1.querySelectorAll("span").forEach(el => setColor(el, 1));
   // listEl2.querySelectorAll("span").forEach(el => setColor(el, -1));
 }
-function renderList(coins,OHLC, models) {
+function renderList(coins) {
   const listEl = document.getElementById("list-list");
   listEl.innerHTML = `<li id="list-el" class="list-el">
                     <h4>Coin</h4>
@@ -297,6 +297,12 @@ async function loadModels() {
   return models;
 }
 function predict(features, model) {
+    const open = features[0];
+    const high = features[1];
+    const low = features[2];
+    const close = features[3];
+    const volume = features[4];
+    
     let result = model.bias;
     for (let i = 0; i < features.length; i++) {
         result += features[i] * model.weights[i];
@@ -305,4 +311,3 @@ function predict(features, model) {
     const prob = 1 / (1 + Math.exp(-result));
     return prob > 0.5 ? "UP" : "DOWN";
 }
-

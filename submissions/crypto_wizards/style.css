@@ -378,6 +378,9 @@ p:hover {
   margin-right: 0.5rem;
   vertical-align: middle;
 }
+.fa-magnifying-glass-chart:hover{
+  cursor: pointer;
+}
 /******************************************************   FEEDBACK   **********************************************************/
 .feedback {
   background-color: var(--bg);
