@@ -2,9 +2,14 @@
 
 document.addEventListener("DOMContentLoaded", init);
 const Models = [];
-function init(Models) {
-  loadData();
-  Models = loadModels();
+async function init() {
+  try {
+    const models = await loadModels();
+    Models.splice(0, Models.length, ...models);
+    await loadData();
+  } catch (err) {
+    console.error("Initialization failed:", err);
+  }
 }
 
 //___________________________________________API_________________________________________________________________
@@ -127,15 +132,26 @@ async function fetchList(id = coins) {
     console.error("Failed to fetch CoinGecko data:", err);
   }
 }
-async function fetchOHLC(id = coins) {
+async function fetchOHLC(id) {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/ids=${id}/ohlc`,
+      `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(id)}/ohlc?vs_currency=inr&days=30&x_cg_api_key=${key}`,
     );
     const data = await res.json();
-    // data.sort((a, b) => a.name.localeCompare(b.name));
-    console.log("OHLC data :", data);
-    return data;
+    const daily = [];
+    for (let i = 0; i < data.length; i += 6) {
+      const chunk = data.slice(i, i + 6);
+
+      const open = chunk[0][1];
+      const close = chunk[chunk.length - 1][4];
+      const high = Math.max(...chunk.map((x) => x[2]));
+      const low = Math.min(...chunk.map((x) => x[3]));
+
+      daily.push([open, high, low, close]);
+    }
+
+    console.log("OHLC data :", daily);
+    return daily;
   } catch (err) {
     console.error("Failed to fetch CoinGecko data:", err);
   }
@@ -187,8 +203,8 @@ function renderGlobal(global) {
 
   const el1 = document.getElementById("hero2-market").querySelector("span");
   const el2 = document.getElementById("hero2-volume").querySelector("span");
-  value1 = global.data.market_cap_change_percentage_24h_usd;
-  value2 = global.data.volume_change_percentage_24h_usd;
+  const value1 = global.data.market_cap_change_percentage_24h_usd;
+  const value2 = global.data.volume_change_percentage_24h_usd;
   el1.textContent = (value1 > 0 ? "+" : "") + value1.toFixed(2) + "%";
   el2.textContent = (value2 > 0 ? "+" : "") + value2.toFixed(2) + "%";
   setColor(el1, value1);
@@ -241,18 +257,34 @@ function renderList(coins) {
                     <p>${(coin.price_change_percentage_24h > 0 ? "+" : "") + coin.price_change_percentage_24h.toFixed(2) + "%"}</p>
                     <p>${coin.high_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
                     <p>${coin.low_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
-                    <p><i class="fa-solid fa-caret-up"></i></p>
-                    <p>predict([],models[i])</p>`;
+                    <p><i class="fa-solid fa-magnifying-glass-chart"></i></p>
+                    <p></p>`;
     listEl.appendChild(el);
-  });
-  const listEls = document.querySelectorAll(".list-el");
-  listEls.forEach((el, i) => {
-    if (i > 0) {
-      setColor(
-        el.querySelectorAll("p")[1],
-        parseFloat(el.querySelectorAll("p")[1].textContent),
-      );
-    }
+    el.querySelectorAll("p")[4].addEventListener("click", () => {
+      fetchOHLC(coin.id).then((ohlc) => {
+        const model = Models[i];
+        const features = [
+          ohlc[0][0],
+          ohlc[0][1],
+          ohlc[0][2],
+          ohlc[0][3],
+          coin.total_volume,
+        ];
+        console.log("clicked on coin , features:",ohlc);
+        const [prediction, confidence] = predict(features,ohlc, model);
+        el.querySelectorAll("p")[4].textContent = prediction;
+        el.querySelectorAll("p")[5].textContent = confidence;
+      });
+    });
+    const listEls = document.querySelectorAll(".list-el");
+    listEls.forEach((el, i) => {
+      if (i > 0) {
+        setColor(
+          el.querySelectorAll("p")[1],
+          parseFloat(el.querySelectorAll("p")[1].textContent),
+        );
+      }
+    });
   });
 }
 
@@ -296,18 +328,69 @@ async function loadModels() {
   console.log("ML Models loaded:", models);
   return models;
 }
-function predict(features, model) {
-    const open = features[0];
-    const high = features[1];
-    const low = features[2];
-    const close = features[3];
-    const volume = features[4];
-    
-    let result = model.bias;
-    for (let i = 0; i < features.length; i++) {
-        result += features[i] * model.weights[i];
-    }
+function predict(features, data, model) {
+  const engineeredFeatures = computeFeatures(data);
+  const allFeatures = [...features, ...engineeredFeatures];
+  const safeFeature = (value) => (Number.isFinite(value) ? value : 0);
+  let result = Number.isFinite(model.bias) ? model.bias : 0;
 
-    const prob = 1 / (1 + Math.exp(-result));
-    return prob > 0.5 ? "UP" : "DOWN";
+  for (let i = 0; i < model.weights.length; i++) {
+    const featureValue = safeFeature(allFeatures[i]);
+    const weightValue = safeFeature(model.weights[i]);
+    result += featureValue * weightValue;
+  }
+
+  const prob = 1 / (1 + Math.exp(-result));
+  return [prob > 0.5 ? "UP" : "DOWN", prob.toFixed(4)];
+}
+
+function computeFeatures(data) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return [0, 0, 0, 0];
+  }
+
+  const safeNumber = (value) => (Number.isFinite(value) ? value : 0);
+  const lastIndex = data.length - 1;
+  const [, high, low, close] = data[lastIndex];
+  const prevClose = lastIndex > 0 ? data[lastIndex - 1][3] : close;
+
+  const ret = prevClose ? (close - prevClose) / prevClose : 0;
+
+  let ma7 = close;
+  if (data.length >= 7) {
+    let sum = 0;
+    for (let i = data.length - 7; i < data.length; i++) {
+      sum += data[i][3];
+    }
+    ma7 = sum / 7;
+  }
+
+  let volatility7 = 0;
+  if (data.length >= 7) {
+    const returns = [];
+    for (let i = data.length - 7; i < data.length; i++) {
+      if (i > 0) {
+        const prev = data[i - 1][3];
+        const curr = data[i][3];
+        if (prev) {
+          returns.push((curr - prev) / prev);
+        }
+      }
+    }
+    if (returns.length) {
+      const mean = returns.reduce((a, b) => a + b, 0) / returns.length;
+      const variance =
+        returns.reduce((a, b) => a + (b - mean) ** 2, 0) / returns.length;
+      volatility7 = Math.sqrt(variance);
+    }
+  }
+
+  const hlRange = high - low;
+
+  return [
+    safeNumber(ret),
+    safeNumber(ma7),
+    safeNumber(volatility7),
+    safeNumber(hlRange),
+  ];
 }
