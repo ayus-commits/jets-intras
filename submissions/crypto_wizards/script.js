@@ -309,5 +309,5 @@ function predict(features, model) {
     }
 
     const prob = 1 / (1 + Math.exp(-result));
-    return prob > 0.5 ? "UP" : "DOWN";
+    return prob > 0.5 ? '<i class="fa-solid fa-angles-up" style="color:var(--green);"></i>' : '<i class="fa-solid fa-angles-down" style="color:var(--red);"></i>';
 }
