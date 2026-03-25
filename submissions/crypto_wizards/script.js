@@ -1,11 +1,11 @@
 //___________________________________________Initial_________________________________________________________________
 
 document.addEventListener("DOMContentLoaded", init);
-const Models = [];
+const Models = {};
 async function init() {
   try {
     const models = await loadModels();
-    Models.splice(0, Models.length, ...models);
+    Object.assign(Models, models);
     await loadData();
   } catch (err) {
     console.error("Initialization failed:", err);
@@ -20,21 +20,21 @@ const key = "CG-zBNS7Y2qU3cHf5twpN9CJ3pg";
 //   try {
 //     const res = await fetch(
 //     // trending:
-//     //   `https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/search/trending`,
 //     // price:
-//     //   `https://api.coingecko.com/api/v3/simple/price?vs_currencies=inr&ids=${id}&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/simple/price?vs_currencies=inr&ids=${id}`,
 //     // market data :
-//     //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${id}&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${id}`,
 //     // historical data on date:
-//     //   `https://api.coingecko.com/api/v3/coins/${id}/history?date=01-01-2026&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/coins/${id}/history?date=01-01-2026`,
 //     // detailed data :
-//     //   `https://api.coingecko.com/api/v3/coins/${id}?vs_currencies=inr&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/coins/${id}?vs_currencies=inr`,
 //     // market chart data for 7 days:
-//     //   `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=inr&days=7&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=inr&days=7`,
 //     // top 20 coins by market cap:
-//     //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=20&page=1&x_cg_api_key=${key}`,
+//     //   `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=20&page=1`,
 //     // global data:
-//       `https://api.coingecko.com/api/v3/global?x_cg_api_key=${key}`
+//       `https://api.coingecko.com/api/v3/global`
 //     );
 //     const data = await res.json();
 //     console.log("Crypto Market data loaded", data);
@@ -47,7 +47,7 @@ const key = "CG-zBNS7Y2qU3cHf5twpN9CJ3pg";
 async function fetchglobal() {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/global?x_cg_api_key=${key}`,
+      `https://api.coingecko.com/api/v3/global`,
     );
     const data = await res.json();
     console.log("Global Data loaded :", data);
@@ -59,7 +59,7 @@ async function fetchglobal() {
 async function fetchTrending() {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/search/trending?x_cg_api_key=${key}`,
+      `https://api.coingecko.com/api/v3/search/trending`,
     );
     const data = await res.json();
     const trending = data.coins.slice(0, 10);
@@ -72,7 +72,7 @@ async function fetchTrending() {
 async function fetchGainersLosers() {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h&x_cg_api_key=${key}`,
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=250&page=1&price_change_percentage=24h`,
     );
     const data = await res.json();
     const valid = data.filter((c) => c.price_change_percentage_24h !== null);
@@ -122,7 +122,7 @@ const coins = [
 async function fetchList(id = coins) {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${id}&x_cg_api_key=${key}`,
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&ids=${id}`,
     );
     const data = await res.json();
     data.sort((a, b) => a.name.localeCompare(b.name));
@@ -135,7 +135,7 @@ async function fetchList(id = coins) {
 async function fetchOHLC(id) {
   try {
     const res = await fetch(
-      `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(id)}/ohlc?vs_currency=inr&days=30&x_cg_api_key=${key}`,
+      `https://api.coingecko.com/api/v3/coins/${encodeURIComponent(id)}/ohlc?vs_currency=inr&days=30`,
     );
     const data = await res.json();
     const daily = [];
@@ -262,18 +262,26 @@ function renderList(coins) {
     listEl.appendChild(el);
     el.querySelectorAll("p")[4].addEventListener("click", () => {
       fetchOHLC(coin.id).then((ohlc) => {
-        const model = Models[i];
+        const model = Models[coin.id];
+        if (!model || !Array.isArray(ohlc) || !ohlc.length) {
+          el.querySelectorAll("p")[4].innerHTML = "-";
+          el.querySelectorAll("p")[5].textContent = "N/A";
+          alert("too many requests, please try again later");
+          return;
+        }
+
+        const latest = ohlc[ohlc.length - 1];
         const features = [
-          ohlc[0][0],
-          ohlc[0][1],
-          ohlc[0][2],
-          ohlc[0][3],
-          coin.total_volume,
+          latest[0],
+          latest[1],
+          latest[2],
+          latest[3],
+          Number.isFinite(coin.total_volume) ? coin.total_volume : 0,
         ];
-        console.log("clicked on coin , features:",ohlc);
-        const [prediction, confidence] = predict(features,ohlc, model);
+        console.log("clicked on coin , features:", ohlc);
+        const [prediction, confidence] = predict(features, ohlc, model);
         el.querySelectorAll("p")[4].innerHTML = prediction;
-        el.querySelectorAll("p")[5].textContent = confidence;
+        el.querySelectorAll("p")[5].textContent = (confidence>0.5) ? confidence : 1-confidence;
       });
     });
     const listEls = document.querySelectorAll(".list-el");
@@ -290,58 +298,79 @@ function renderList(coins) {
 
 //___________________________________________ML_________________________________________________________________
 async function loadModels() {
-  const modelFiles = [
-    "ml_model/weights/coin_Aave.json",
-    "ml_model/weights/coin_BinanceCoin.json",
-    "ml_model/weights/coin_Bitcoin.json",
-    "ml_model/weights/coin_Cardano.json",
-    "ml_model/weights/coin_ChainLink.json",
-    "ml_model/weights/coin_Cosmos.json",
-    "ml_model/weights/coin_CryptocomCoin.json",
-    "ml_model/weights/coin_Dogecoin.json",
-    "ml_model/weights/coin_EOS.json",
-    "ml_model/weights/coin_Ethereum.json",
-    "ml_model/weights/coin_Iota.json",
-    "ml_model/weights/coin_Litecoin.json",
-    "ml_model/weights/coin_Monero.json",
-    "ml_model/weights/coin_NEM.json",
-    "ml_model/weights/coin_Polkadot.json",
-    "ml_model/weights/coin_Solana.json",
-    "ml_model/weights/coin_Stellar.json",
-    "ml_model/weights/coin_Tether.json",
-    "ml_model/weights/coin_Tron.json",
-    "ml_model/weights/coin_Uniswap.json",
-    "ml_model/weights/coin_USDCoin.json",
-    "ml_model/weights/coin_WrappedBitcoin.json",
-    "ml_model/weights/coin_XRP.json",
-  ];
-  const models = [];
+  const modelFilesById = {
+    aave: "ml_model/weights/coin_Aave.json",
+    binancecoin: "ml_model/weights/coin_BinanceCoin.json",
+    bitcoin: "ml_model/weights/coin_Bitcoin.json",
+    cardano: "ml_model/weights/coin_Cardano.json",
+    chainlink: "ml_model/weights/coin_ChainLink.json",
+    cosmos: "ml_model/weights/coin_Cosmos.json",
+    "crypto-com-chain": "ml_model/weights/coin_CryptocomCoin.json",
+    dogecoin: "ml_model/weights/coin_Dogecoin.json",
+    eos: "ml_model/weights/coin_EOS.json",
+    ethereum: "ml_model/weights/coin_Ethereum.json",
+    iota: "ml_model/weights/coin_Iota.json",
+    litecoin: "ml_model/weights/coin_Litecoin.json",
+    monero: "ml_model/weights/coin_Monero.json",
+    nem: "ml_model/weights/coin_NEM.json",
+    polkadot: "ml_model/weights/coin_Polkadot.json",
+    solana: "ml_model/weights/coin_Solana.json",
+    stellar: "ml_model/weights/coin_Stellar.json",
+    tether: "ml_model/weights/coin_Tether.json",
+    tron: "ml_model/weights/coin_Tron.json",
+    uniswap: "ml_model/weights/coin_Uniswap.json",
+    "usd-coin": "ml_model/weights/coin_USDCoin.json",
+    "wrapped-bitcoin": "ml_model/weights/coin_WrappedBitcoin.json",
+    ripple: "ml_model/weights/coin_XRP.json",
+  };
+  const models = {};
 
-  for (const file of modelFiles) {
+  for (const [coinId, file] of Object.entries(modelFilesById)) {
     const response = await fetch(file);
     if (!response.ok) {
       throw new Error(`Model file failed: ${file} (${response.status})`);
     }
     const model = await response.json();
-    models.push(model);
+    models[coinId] = model;
   }
   console.log("ML Models loaded:", models);
   return models;
 }
 function predict(features, data, model) {
+  if (!model || !Array.isArray(model.weights) || !Array.isArray(features)) {
+    alert("too many requests, please try again later");
+    return ["-", "N/A"];
+  }
+
   const engineeredFeatures = computeFeatures(data);
   const allFeatures = [...features, ...engineeredFeatures];
+  
+  // Validate all features are finite numbers
+  if (!allFeatures.every(f => Number.isFinite(f))) {
+    return ["-", "N/A"];
+  }
+  
   const safeFeature = (value) => (Number.isFinite(value) ? value : 0);
   let result = Number.isFinite(model.bias) ? model.bias : 0;
 
-  for (let i = 0; i < model.weights.length; i++) {
+  const len = Math.min(model.weights.length, allFeatures.length);
+  for (let i = 0; i < len; i++) {
     const featureValue = safeFeature(allFeatures[i]);
     const weightValue = safeFeature(model.weights[i]);
     result += featureValue * weightValue;
   }
 
-  const prob = 1 / (1 + Math.exp(-result));
-  return [prob > 0.5 ? '<i class="fa-solid fa-angles-up" style="color:var(--green);"></i>' : '<i class="fa-solid fa-angles-down" style="color:var(--red);"></i>', prob.toFixed(4)];
+  const z = Math.max(-60, Math.min(60, result));
+  const prob =
+    z >= 0 ? 1 / (1 + Math.exp(-z)) : Math.exp(z) / (1 + Math.exp(z));
+  const boundedProb = Math.max(0.001, Math.min(0.999, prob));
+
+  return [
+    boundedProb > 0.5
+      ? '<i class="fa-solid fa-angles-up" style="color:var(--green);"></i>'
+      : '<i class="fa-solid fa-angles-down" style="color:var(--red);"></i>',
+    boundedProb.toFixed(3),
+  ];
 }
 
 function computeFeatures(data) {
