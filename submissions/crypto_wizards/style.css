@@ -10,6 +10,9 @@ html {
   scroll-behavior: smooth;
   background-color: var(--bg);
 }
+body {
+  overflow-x: hidden;
+}
 ul {
   list-style: none;
 }
@@ -33,12 +36,12 @@ p:hover {
   --font2: #c9c9c9;
   --highlight: #7db2dd;
   --highlight2: #20425d;
-  --highlight3:#123A38;
+  --highlight3: #123a38;
   --box: #ffffff0d;
   --shadow: var(--box);
   --border: rgb(66, 66, 66);
   --gradient:
-  linear-gradient(
+    linear-gradient(
       to bottom,
       var(--bg) 0%,
       rgba(255, 255, 255, 0) 50%,
@@ -48,46 +51,44 @@ p:hover {
   --gradient1:
     linear-gradient(
       to bottom,
-      /* var(--bg) 0%, */
-      rgba(255, 255, 255, 0) 0%,
+      /* var(--bg) 0%, */ rgba(255, 255, 255, 0) 0%,
       var(--bg) 70%
     ),
     url(assets/images/3\ copy.jpg);
   --gradient2:
-  linear-gradient(
+    linear-gradient(
       to bottom,
       var(--bg) 0%,
       rgba(255, 255, 255, 0) 50%,
       var(--bg) 100%
     ),
     url(assets/images/4.jpg);
-    --gradient3:
-  linear-gradient(
+  --gradient3:
+    linear-gradient(
       to bottom,
       var(--bg) 0%,
       rgba(255, 255, 255, 0) 50%,
       var(--bg) 100%
     ),
     url(assets/images/7.gif);
-    
+
   --red: #c23f52;
   --green: #00a68c;
   /* --logo: rgb(255, 153, 0); */
 }
 #main {
   /* background: var(--gradient); */
-    /* background-size: cover; */
+  /* background-size: cover; */
   background-color: var(--bg);
   color: var(--font);
 }
-
 
 /******************************************************   NAV-BAR   **********************************************************/
 .nav-bar {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   justify-content: space-between;
   background-color: var(--navbar);
   height: 5rem;
@@ -100,7 +101,7 @@ p:hover {
   padding: 0.7rem;
   height: 100%;
   display: flex;
-  align-items: center   ;
+  align-items: center;
 }
 .nav-bar1 img {
   height: 90%;
@@ -144,11 +145,45 @@ p:hover {
   left: 0px;
   width: 100%;
 }
+#hamburger {
+  display: none;
+  color: var(--font);
+}
+@media screen and (max-width: 1100px) {
+  #hamburger {
+    display: inline-block;
+    font-size: 2rem;
+    margin-right: 20px;
+    transition: all 0.5s;
+  }
+  .nav-bar2 {
+    width: 70vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    font-size: large;
+    font-weight: bold;
+    position: fixed;
+    background-color: var(--navbar);
+    color: var(--font);
+    left: 30vw;
+    top: -40vh;
+    border-radius: 0 0 0 25px;
+    transition: all 0.5s;
+  }
+  #hamburger.active {
+    transform: rotate(90deg);
+  }
+  .nav-bar2.active {
+    top: 80px;
+  }
+}
 
 /******************************************************   Hero   **********************************************************/
 #hero {
   background: var(--gradient1);
-  background-size:cover;
+  background-size: cover;
 }
 .hero1 {
   display: flex;
@@ -163,6 +198,7 @@ p:hover {
 .hero1 h1 span {
   color: var(--highlight);
   text-decoration: underline solid var(--font) 7px;
+  white-space: nowrap;
   transition:
     color 0.3s,
     text-shadow 0.3s;
@@ -177,16 +213,29 @@ p:hover {
   color: var(--highlight);
 }
 
+@media screen and (max-width: 1000px) {
+  .hero1 {
+    margin: 0 3rem;
+    height: 30vh;
+  }
+  .hero1 h1 {
+    font-size: 2rem;
+  }
+  .hero1 p {
+    font-size: 1rem;
+  }
+}
+
 /******************************************************   Hero2   **********************************************************/
 .hero2 h2 {
-    font-size: 2rem;
+  font-size: 2rem;
   align-self: flex-start;
   margin: 2rem 0rem;
-    color: var(--highlight);
+  color: var(--highlight);
 }
 .hero2 {
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -204,18 +253,20 @@ p:hover {
   width: 100%;
 }
 .hero2-el {
-  width: 25%;
+  width: 24%;
   aspect-ratio: 3/2;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  white-space: nowrap;
+
   /* border-right:1px solid var(--highlight); */
   /* border-right:1px solid var(--font2); */
 
   /* background-color: var(--box); */
-    background: var(--gradient2);
-    background-size: contain;
+  background: var(--gradient2);
+  background-size: contain;
   /* border-radius: 2rem; */
   /* box-shadow: 0px 5px 5px var(--shadow); */
   /* backdrop-filter: blur(10px); */
@@ -225,11 +276,11 @@ p:hover {
     box-shadow 0.3s,
     transform 0.3s; */
 }
-.hero2-el h4{
-    font-size: 1.2rem;
+.hero2-el h4 {
+  font-size: 1.2rem;
 }
-#hero2-active{
-    border: none;
+#hero2-active {
+  border: none;
 }
 .hero2-el:hover {
   cursor: pointer;
@@ -237,18 +288,83 @@ p:hover {
   /* transform: scale(0.9); */
   /* box-shadow: 0px 0px 5px var(--box); */
 }
+@media screen and (max-width: 1100px) {
+  .hero2 {
+    width: 90%;
+    margin: 0 3rem;
+  }
+  #hero2-list {
+    height: auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero2-el {
+    width: calc(50% - 0.5rem);
+  }
+  .hero2-el h4 {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 800px) {
+  .hero2 {
+    width: 90%;
+    margin: 0 auto;
+  }
+  #hero2-list {
+    height: auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero2-el {
+    width: calc(20% - 0.5rem);
+    height: auto;
+  }
+  .hero2-el h4 {
+    font-size: 0.8rem;
+  }
+  .hero3 h2 {
+    font-size: 0.8rem;
+    height: auto;
+  }
+}
+@media screen and (max-width: 600px) {
+  .hero2 {
+    width: 90%;
+    margin: 0 auto;
+  }
+  #hero2-list {
+    height: auto;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero2-el {
+    width: calc(20% - 0.5rem);
+    height: auto;
+  }
+  .hero2-el h4 {
+    font-size: 0.6rem;
+  }
+   .hero2 h2 {
+    font-size: 1rem;
+    height: auto;
+  }
+  .hero3 h2 {
+    font-size: 0.5rem;
+    height: auto;
+  }
+}
 
 /******************************************************   Hero3   **********************************************************/
 .hero3 h2 {
-    font-size: 2rem;
+  font-size: 2rem;
   align-self: flex-start;
   margin: 2rem 0rem;
   text-wrap: nowrap;
-    color: var(--highlight);
+  color: var(--highlight);
 }
 .hero3 {
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -273,8 +389,8 @@ p:hover {
   justify-content: space-evenly;
   align-items: center;
   background-color: var(--box);
-    /* background: var(--gradient3); */
-    background-size: contain;
+  /* background: var(--gradient3); */
+  background-size: contain;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px var(--shadow);
   transition:
@@ -315,9 +431,39 @@ p:hover {
 #hero3-list3 li span {
   color: var(--red);
 }
+
+@media screen and (max-width: 1000px) {
+  .hero3 {
+    width: 90%;
+    margin: 0 auto;
+  }
+  #hero3-list {
+    gap: 1rem;
+  }
+  .hero3-el {
+    width: 32%;
+    font-size: 1.2rem;
+  }
+  .hero3-list li {
+    font-size: 1rem;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  #hero3-list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .hero3-el {
+    width: 100%;
+    aspect-ratio: auto;
+    padding: 1rem 0;
+  }
+}
 /******************************************************   list   **********************************************************/
 #list {
-    /* margin: 2rem 0; */
+  /* margin: 2rem 0; */
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -330,7 +476,7 @@ p:hover {
   align-self: flex-start;
   margin: 2rem 0rem;
   font-size: 2rem;
-    color: var(--highlight);
+  color: var(--highlight);
 }
 #list-list {
   width: 70vw;
@@ -355,7 +501,7 @@ p:hover {
   width: 100%;
   padding-left: 1rem;
   border-top: 1px solid rgba(237, 237, 237, 0.198);
-  border-radius:15px;
+  border-radius: 15px;
 }
 .list-el:hover {
   background-color: #ffffff24;
@@ -366,7 +512,7 @@ p:hover {
   font-size: 1.5rem;
   color: inherit;
 }
-.list-el h4{
+.list-el h4 {
   width: 20%;
 }
 .list-el p {
@@ -377,6 +523,21 @@ p:hover {
   height: 1.5rem;
   margin-right: 0.5rem;
   vertical-align: middle;
+}
+
+@media screen and (max-width: 1000px) {
+  #list {
+    width: 95%;
+    margin: 0 auto 4rem;
+  }
+  #list-list {
+    width: 100%;
+    overflow-x: auto;
+  }
+  .list-el {
+    min-width: 900px;
+    gap: 0.75rem;
+  }
 }
 /******************************************************   FEEDBACK   **********************************************************/
 .feedback {
@@ -401,7 +562,10 @@ p:hover {
   font-weight: 500;
   border-radius: 20px;
   border: 2px solid var(--font);
-  transition: background-color 0.5s, color 0.5s, box-shadow 0.5s;
+  transition:
+    background-color 0.5s,
+    color 0.5s,
+    box-shadow 0.5s;
 }
 .feedback button:hover {
   background-color: var(--highlight2);
@@ -504,4 +668,77 @@ p:hover {
     color 0.5s,
     scale 1s,
     text-shadow 0.5s;
+}
+
+@media screen and (max-width: 900px) {
+  .footer {
+    height: auto;
+    gap: 1.5rem;
+    padding: 2rem 0;
+  }
+  .footer1 {
+    flex-wrap: wrap;
+    row-gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  .footer1 ul {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .footer1 {
+    padding-left: 3%;
+    justify-content: space-between;
+  }
+  .footer1 ul {
+    font-size: 1.1rem;
+    width: 35%;
+  }
+  .footer1 ul li {
+    font-size: 1rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .footer1 {
+    padding-left: 3%;
+    justify-content: space-between;
+  }
+  .footer1 ul {
+    font-size: 1rem;
+    width: 22%;
+  }
+  .footer1 ul li {
+    font-size: 0.8rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .footer1 {
+    padding-left: 3%;
+    justify-content: space-between;
+  }
+  .footer1 ul {
+    font-size: 0.7rem;
+    width: 22%;
+  }
+  .footer1 ul li {
+    font-size: 0.6rem;
+  }
+}
+@media screen and (max-width: 600px) {
+  .footer2,
+  .footer4,
+  .footer3 {
+    scale: 0.7;
+  }
+}
+@media screen and (max-width: 400px) {
+  .footer2,
+  .footer4,
+  .footer3 {
+    scale: 0.6;
+  }
+  .footer4 {
+    scale: 0.5;
+  }
 }

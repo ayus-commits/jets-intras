@@ -423,3 +423,11 @@ function computeFeatures(data) {
     safeNumber(hlRange),
   ];
 }
+
+
+
+//___________________________________________ hamburger _________________________________________________________________
+document.getElementById("hamburger").addEventListener('click',()=>{
+    document.getElementById("hamburger").classList.toggle("active");
+    document.getElementsByClassName("nav-bar2")[0].classList.toggle("active");
+})
