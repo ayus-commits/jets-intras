@@ -80,13 +80,13 @@ async function fetchGainersLosers() {
       .sort(
         (a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h,
       )
-      .slice(0, 11);
+      .slice(0, 10);
 
     const losers = [...valid]
       .sort(
         (a, b) => a.price_change_percentage_24h - b.price_change_percentage_24h,
       )
-      .slice(0, 11);
+      .slice(0, 10);
     console.log("Top Gainers:", gainers);
     console.log("Top Losers:", losers);
     return { gainers, losers };
