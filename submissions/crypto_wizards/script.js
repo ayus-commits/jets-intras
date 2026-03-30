@@ -431,3 +431,26 @@ document.getElementById("hamburger").addEventListener('click',()=>{
     document.getElementById("hamburger").classList.toggle("active");
     document.getElementsByClassName("nav-bar2")[0].classList.toggle("active");
 })
+
+//___________________________________________ check logged in _________________________________________________________________
+document.addEventListener('DOMContentLoaded', ()=>{
+    const userStr = localStorage.getItem('currentUser');
+
+    if(userStr){
+        //logged in
+        const user = JSON.parse(userStr);
+        console.log('user data',user);
+        document.getElementsByClassName("nav-el")[5].innerHTML=`<i class="fa-solid fa-user"></i>Logout, ${user.fname}`;
+        document.getElementsByClassName("nav-el")[5].href='login.html';
+        document.getElementById("message").innerHTML=`Welcome back, <span>${user.fname}</span>`;
+        document.getElementsByClassName("nav-el")[5].addEventListener('click',()=>{
+            localStorage.removeItem('currentUser');
+        })
+    }
+    else{
+        //guest
+        document.getElementsByClassName("nav-el")[5].innerHTML='<i class="fa-solid fa-user"></i>Log in';
+        document.getElementsByClassName("nav-el")[5].href='login.html';
+        // document.getElementById("message").style.display='none';
+    }
+})
