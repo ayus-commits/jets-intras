@@ -46,9 +46,7 @@ const key = "CG-zBNS7Y2qU3cHf5twpN9CJ3pg";
 
 async function fetchglobal() {
   try {
-    const res = await fetch(
-      `https://api.coingecko.com/api/v3/global`,
-    );
+    const res = await fetch(`https://api.coingecko.com/api/v3/global`);
     const data = await res.json();
     console.log("Global Data loaded :", data);
     return data;
@@ -58,9 +56,7 @@ async function fetchglobal() {
 }
 async function fetchTrending() {
   try {
-    const res = await fetch(
-      `https://api.coingecko.com/api/v3/search/trending`,
-    );
+    const res = await fetch(`https://api.coingecko.com/api/v3/search/trending`);
     const data = await res.json();
     const trending = data.coins.slice(0, 10);
     console.log("trending Data loaded :", trending);
@@ -185,6 +181,11 @@ function setColor(el, value) {
     el.style.color = "gray";
   }
 }
+function getNumericId(imageUrl) {
+  // imageUrl = "https://coin-images.coingecko.com/coins/images/1/large/bitcoin.png"
+  const match = imageUrl.match(/\/images\/(\d+)\//);
+  return match ? match[1] : null;
+}
 function renderGlobal(global) {
   document.getElementById("hero2-market").querySelector("p").textContent =
     global.data.total_market_cap.inr.toLocaleString("en-IN", {
@@ -245,6 +246,7 @@ function renderList(coins) {
                     <p>24h%</p>
                     <p>High 24h</p>
                     <p>Low 24h</p>
+                    <p>7-day</p>
                     <p>Prediction</p>
                     <p>Confidence</p>
                 </li>`;
@@ -257,15 +259,16 @@ function renderList(coins) {
                     <p>${(coin.price_change_percentage_24h > 0 ? "+" : "") + coin.price_change_percentage_24h.toFixed(2) + "%"}</p>
                     <p>${coin.high_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
                     <p>${coin.low_24h.toLocaleString("en-IN", { style: "currency", currency: "INR" })}</p>
+                    <p><img src="https://www.coingecko.com/coins/${getNumericId(coin.image)}/sparkline.svg" alt="${coin.coin_id}"></p>
                     <p><i class="fa-solid fa-magnifying-glass-chart"></i></p>
                     <p></p>`;
     listEl.appendChild(el);
-    el.querySelectorAll("p")[4].addEventListener("click", () => {
+    el.querySelectorAll("p")[5].addEventListener("click", () => {
       fetchOHLC(coin.id).then((ohlc) => {
         const model = Models[coin.id];
         if (!model || !Array.isArray(ohlc) || !ohlc.length) {
-          el.querySelectorAll("p")[4].innerHTML = "-";
-          el.querySelectorAll("p")[5].textContent = "N/A";
+          el.querySelectorAll("p")[5].innerHTML = "-";
+          el.querySelectorAll("p")[6].textContent = "N/A";
           alert("too many requests, please try again later");
           return;
         }
@@ -280,8 +283,9 @@ function renderList(coins) {
         ];
         console.log("clicked on coin , features:", ohlc);
         const [prediction, confidence] = predict(features, ohlc, model);
-        el.querySelectorAll("p")[4].innerHTML = prediction;
-        el.querySelectorAll("p")[5].textContent = (confidence>0.5) ? confidence : 1-confidence;
+        el.querySelectorAll("p")[5].innerHTML = prediction;
+        el.querySelectorAll("p")[6].textContent =
+          confidence > 0.5 ? confidence : 1 - confidence;
       });
     });
     const listEls = document.querySelectorAll(".list-el");
@@ -344,12 +348,12 @@ function predict(features, data, model) {
 
   const engineeredFeatures = computeFeatures(data);
   const allFeatures = [...features, ...engineeredFeatures];
-  
+
   // Validate all features are finite numbers
-  if (!allFeatures.every(f => Number.isFinite(f))) {
+  if (!allFeatures.every((f) => Number.isFinite(f))) {
     return ["-", "N/A"];
   }
-  
+
   const safeFeature = (value) => (Number.isFinite(value) ? value : 0);
   let result = Number.isFinite(model.bias) ? model.bias : 0;
 
@@ -424,33 +428,35 @@ function computeFeatures(data) {
   ];
 }
 
-
-
 //___________________________________________ hamburger _________________________________________________________________
-document.getElementById("hamburger").addEventListener('click',()=>{
-    document.getElementById("hamburger").classList.toggle("active");
-    document.getElementsByClassName("nav-bar2")[0].classList.toggle("active");
-})
+document.getElementById("hamburger").addEventListener("click", () => {
+  document.getElementById("hamburger").classList.toggle("active");
+  document.getElementsByClassName("nav-bar2")[0].classList.toggle("active");
+});
 
 //___________________________________________ check logged in _________________________________________________________________
-document.addEventListener('DOMContentLoaded', ()=>{
-    const userStr = localStorage.getItem('currentUser');
+document.addEventListener("DOMContentLoaded", () => {
+  const userStr = localStorage.getItem("currentUser");
 
-    if(userStr){
-        //logged in
-        const user = JSON.parse(userStr);
-        console.log('user data',user);
-        document.getElementsByClassName("nav-el")[5].innerHTML=`<i class="fa-solid fa-user"></i>Logout, ${user.fname}`;
-        document.getElementsByClassName("nav-el")[5].href='login.html';
-        document.getElementById("message").innerHTML=`Welcome back, <span>${user.fname}</span>`;
-        document.getElementsByClassName("nav-el")[5].addEventListener('click',()=>{
-            localStorage.removeItem('currentUser');
-        })
-    }
-    else{
-        //guest
-        document.getElementsByClassName("nav-el")[5].innerHTML='<i class="fa-solid fa-user"></i>Log in';
-        document.getElementsByClassName("nav-el")[5].href='login.html';
-        // document.getElementById("message").style.display='none';
-    }
-})
+  if (userStr) {
+    //logged in
+    const user = JSON.parse(userStr);
+    console.log("user data", user);
+    document.getElementsByClassName("nav-el")[5].innerHTML =
+      `<i class="fa-solid fa-user"></i>Logout, ${user.fname}`;
+    document.getElementsByClassName("nav-el")[5].href = "login.html";
+    document.getElementById("message").innerHTML =
+      `Welcome back, <span>${user.fname}</span>`;
+    document
+      .getElementsByClassName("nav-el")[5]
+      .addEventListener("click", () => {
+        localStorage.removeItem("currentUser");
+      });
+  } else {
+    //guest
+    document.getElementsByClassName("nav-el")[5].innerHTML =
+      '<i class="fa-solid fa-user"></i>Log in';
+    document.getElementsByClassName("nav-el")[5].href = "login.html";
+    // document.getElementById("message").style.display='none';
+  }
+});

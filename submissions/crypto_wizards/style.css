@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Doto:wght@100..900&family=Iceland&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rationale&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee&family=Doto:wght@100..900&family=Iceland&family=Orbitron:wght@400..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rationale&display=swap");
 * {
   margin: 0;
   padding: 0;
@@ -287,7 +287,7 @@ p:hover {
   background: var(--card-bg);
   border: 1px solid rgba(125, 178, 221, 0.1);
   border-radius: 16px;
-width: 22%;
+  width: 22%;
   aspect-ratio: 3/2;
   padding: 1.5rem;
   position: relative;
@@ -323,7 +323,6 @@ width: 22%;
   cursor: pointer;
 } */
 
-
 .hero2-el:hover {
   transform: translateY(-4px);
   box-shadow:
@@ -349,7 +348,6 @@ width: 22%;
 .hero2-el:hover::before {
   opacity: 1;
 }
-
 
 .hero2-el h4 {
   font-size: 1.2rem;
@@ -503,7 +501,6 @@ width: 22%;
   color: var(--red);
 }
 
-
 .hero3-el:hover {
   transform: translateY(-4px);
   box-shadow:
@@ -529,8 +526,6 @@ width: 22%;
 .hero3-el:hover::before {
   opacity: 1;
 }
-
-
 
 @media screen and (max-width: 1000px) {
   .hero3 {
@@ -597,7 +592,7 @@ width: 22%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 3rem;
+  height: 5rem;
   width: 100%;
   padding-left: 1rem;
   border-top: 0.5px solid rgba(237, 237, 237, 0.198);
@@ -624,8 +619,10 @@ width: 22%;
   margin-right: 0.5rem;
   vertical-align: middle;
 }
-
-
+.list-el p img {
+  height: 3.5rem;
+  vertical-align: middle;
+}
 
 .list-el:hover {
   transform: translateY(-1px);
@@ -652,8 +649,6 @@ width: 22%;
 .list-el:hover::before {
   opacity: 1;
 }
-
-
 
 @media screen and (max-width: 1000px) {
   #list {
