@@ -460,3 +460,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // document.getElementById("message").style.display='none';
   }
 });
+//___________________________________________ scroll into view _________________________________________________________________
+function scrollHero2(){
+    document.getElementsByClassName("hero-btn")[0].scrollIntoView({
+        behavior:"smooth",
+        block:"start" 
+    });
+}
