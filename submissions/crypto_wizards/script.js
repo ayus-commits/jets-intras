@@ -467,3 +467,17 @@ function scrollHero2(){
         block:"start" 
     });
 }
+//___________________________________________ notification _________________________________________________________________
+document.getElementsByClassName("nav-el")[4].addEventListener("click", (e) => {
+  e.preventDefault();
+  const panel = document.getElementById("notif-panel");
+  panel.style.display = panel.style.display === "block" ? "none" : "block";
+});
+
+document.addEventListener("click", (e) => {
+  const panel = document.getElementById("notif-panel");
+  const btn = document.getElementsByClassName("nav-el")[4];
+  if (!panel.contains(e.target) && !btn.contains(e.target)) {
+    panel.style.display = "none";
+  }
+});
