@@ -829,7 +829,7 @@ border-top: 2px solid var(--highlight2);
   color: rgb(121, 121, 121);
 }
 .footer4 {
-  font-size: 1.8rem;
+  font-size: 1.2rem;
   color: var(--font2);
   transition: color 0.5s;
   z-index: 1000;
@@ -841,8 +841,8 @@ border-top: 2px solid var(--highlight2);
 }
 .footer4:hover i {
   color: rgb(255, 0, 0);
-  scale: 1.5;
-  text-shadow: 0 0 2rem rgb(255, 0, 0);
+  scale: 2;
+  text-shadow: 0 0 1rem rgb(255, 0, 0);
 }
 .footer4 i {
   color: rgb(255, 64, 64);
