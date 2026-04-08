@@ -9,7 +9,7 @@
 * Member 5: [Ananya Jain] - [https://github.com/ananyajain0028]
 
 ## 🔗 Project Links
-* **PPT link:** [https://canva.link/t09sljvadsdcc10]
+* **PPT link:** []
 * **Hosted Demo:** [https://ayus-commits.github.io/jets-intras/submissions/crypto_wizards/index.html]
 
 ## Technical Implementation
