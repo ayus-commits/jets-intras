@@ -45,6 +45,7 @@ for file in files:
     model = LogisticRegression()
     model.fit(X_train, y_train)
 
+    print(Path(file).stem)
     print("Accuracy:", model.score(X_test, y_test))
     print(y.value_counts(normalize=True))
 
